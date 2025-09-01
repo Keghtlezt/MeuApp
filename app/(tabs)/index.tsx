@@ -1,34 +1,37 @@
 import { Image } from 'expo-image';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
+
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { router } from 'expo-router';
 
-export default function HomeScreen() {
+export default function HomeScreen() { 
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#b70808ff', dark: '#005e86ff' }}
+      headerBackgroundColor={{ light: '#b70808ff', dark: '#1382b2ff' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require('@/assets/images/iconapp1.png')}
           style={styles.reactLogo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">BUSCAQUI</ThemedText>
-        
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Seu App de transportes</ThemedText>
       </ThemedView>
       <ThemedView style={styles.login}>
-        <TouchableOpacity style={styles.botao} onPress={() => alert("Teste")}>
-          <Text style={styles.texto}>LOGIN</Text>
+        <TouchableOpacity style={styles.botao} onPress={() => router.navigate('./login')}>
+          <Text style={styles.texto}>ENTRAR</Text>
         </TouchableOpacity>
       </ThemedView>
       <ThemedView style={styles.register}>
-        
+        <TouchableOpacity style={styles.botao} onPress={() => router.navigate('./register')}>
+          <Text style={styles.texto}>REGISTRO</Text>
+        </TouchableOpacity>
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -46,18 +49,25 @@ const styles = StyleSheet.create({
     marginBottom: 1,
   },
   login:{
-
+    alignItems: 'center',
+    marginTop: 30,
   },
   register:{
-
+    alignItems: 'center',
+    marginTop: 1,
   },
-  botao:{
-
+  botao: {
+    backgroundColor: "#005e86ff",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignItems: 'center',
+    width: 140,
   },
-  texto:{
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#ECEDEE',
+  texto: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   reactLogo: {
     height: 178,
