@@ -9,6 +9,9 @@ const MyMultilineInput = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
+    const [senhanovamente, setSenhaNovamente] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [cpf, setCpf] = useState('');
 
     const formatarData = (text) => {
         // Remove todos os caracteres que não são números
@@ -28,7 +31,7 @@ const MyMultilineInput = () => {
         setDataNascimento(dataFormatada);
     };
     const handleSubmit = () => {
-        if (!nome || !email || !senha || !dataNascimento) {
+        if (!nome || !email || !senha || !dataNascimento || !senhanovamente || !telefone || !cpf) {
             Alert.alert('Erro', 'Por favor, preencha todos os campos');
             return;
         }
@@ -54,6 +57,43 @@ const MyMultilineInput = () => {
             onChangeText={newText => setNome(newText)}
             value={nome}
         />
+        <View style={styles.containerCpfData}>
+            <View style={styles.containerCpf}>
+        <Text style={styles.letra}>CPF</Text>
+        <TextInput
+            style={styles.inputCpf}
+            placeholder="Digite seu CPF"
+            keyboardType="numeric"
+            placeholderTextColor="#999" // Cor do placeholder mais visível
+            multiline={false} // Nome geralmente é uma linha só
+            onChangeText={newText => setCpf(newText)}
+            value={cpf}
+        />
+        </View>
+        <View style={styles.containerData}>
+        <Text style={styles.letra}>Data de Nascimento</Text>
+            <TextInput
+                style={styles.inputData}
+                placeholder="DD/MM/AAAA"
+                placeholderTextColor="#999"
+                keyboardType="numeric" // Teclado numérico
+                maxLength={10} // Limita a 10 caracteres (DD/MM/AAAA)
+                multiline={false}
+                onChangeText={handleDataChange}
+                value={dataNascimento}    
+        />
+        </View>
+        </View>
+        <Text style={styles.letra}>Telefone</Text>
+        <TextInput
+            style={styles.inputTelefone}
+            placeholder="Digite seu telefone"
+            placeholderTextColor="#999" // Cor do placeholder mais visível
+            multiline={false} // Nome geralmente é uma linha só
+            keyboardType="numeric"
+            onChangeText={newText => setTelefone(newText)}
+            value={telefone}
+        />
 
         <Text style={styles.letra}>Email</Text>
         <TextInput
@@ -77,24 +117,22 @@ const MyMultilineInput = () => {
             onChangeText={newText => setSenha(newText)}
             value={senha}
         />
-        
-        <Text style={styles.letra}>Data de Nascimento</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="DD/MM/AAAA"
-                placeholderTextColor="#999"
-                keyboardType="numeric" // Teclado numérico
-                maxLength={10} // Limita a 10 caracteres (DD/MM/AAAA)
-                multiline={false}
-                onChangeText={handleDataChange}
-                value={dataNascimento}
-                
-            
+        <Text style={styles.letra}>Confirmar senha</Text>
+        <TextInput
+            style={styles.input}
+            placeholder="Digite sua senha novamente"
+            placeholderTextColor="#999"
+            secureTextEntry={true} // Oculta o texto da senha
+            multiline={false} // Senha é uma linha só
+            onChangeText={newText => setSenhaNovamente(newText)}
+            value={senhanovamente}
         />
         {/* Botão de registro */}
+        <View style={styles.containerRegistro}>
         <TouchableOpacity style={styles.botaoRegistro} onPress={handleSubmit}>
             <Text style={styles.textoBotao}>REGISTRAR</Text>
         </TouchableOpacity>
+        </View>
     </View>
   );
 };
@@ -102,13 +140,28 @@ const MyMultilineInput = () => {
 const styles = StyleSheet.create({
     titleContainer:{
         color:'#ef0000ff',
+       alignItems: 'center',
     },
     container: {
         padding: 20,
         marginTop: 10,
         width: 400,
         height: 0,
-        backgroundColor: '#0093d2ff',
+        backgroundColor: '#ffffffff',
+    },
+    containerRegistro: {
+        alignItems: 'center',
+    },
+    containerCpfData: {
+        justifyContent: 'space-between',
+        flexDirection: "row",
+        
+    },
+    containerCpf: {
+        
+    },
+    containerData: {
+
     },
     input: {
         borderWidth: 1,
@@ -116,13 +169,59 @@ const styles = StyleSheet.create({
         padding: 12,
         minHeight: 50, // Ensures a minimum height for the input
         textAlignVertical: 'top', // Aligns text to the top for multi-line input
-        color: '#fff',
+        color: '#000000ff',
         borderRadius:8,
         fontSize: 16,
+        backgroundColor: '#ffff',
+        marginLeft: 5,
+        marginRight: 5,
+    },
+    inputData: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 12,
+        width: 160,
+        minHeight: 50, // Ensures a minimum height for the input
+        textAlignVertical: 'top', // Aligns text to the top for multi-line input
+        color: '#000000ff',
+        borderRadius:8,
+        fontSize: 16,
+        backgroundColor: '#ffff',
+        marginLeft: 5,
+        marginRight: 280,
+    },
+    inputCpf: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 12,
+        width: 180,
+        minHeight: 50, // Ensures a minimum height for the input
+        textAlignVertical: 'top', // Aligns text to the top for multi-line input
+        color: '#000000ff',
+        borderRadius:8,
+        fontSize: 16,
+        backgroundColor: '#ffff',
+        marginLeft: 5,
+        marginRight: 30,
+    },
+    inputTelefone: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 12,
+        minHeight: 50, // Ensures a minimum height for the input
+        textAlignVertical: 'top', // Aligns text to the top for multi-line input
+        color: '#000000ff',
+        borderRadius:8,
+        fontSize: 16,
+        backgroundColor: '#ffff',
+        marginLeft: 5,
+        marginRight: 180,
     },
     caixa: {
-        marginTop:110,
-        margin:25,
+        height: "100%",
+        width: "100%",
+        paddingTop: 30,
+        backgroundColor: "#0093d2ff",
     },
     letra: {
         marginTop:10,
@@ -131,14 +230,15 @@ const styles = StyleSheet.create({
         marginLeft: 12,
     },
     botaoRegistro: {
-        backgroundColor: '#0093d2',
+        backgroundColor: '#005e86ff',
         paddingVertical: 15,
         paddingHorizontal: 30,
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 25,
+        width: 150,
         // Sombra para o botão
-        shadowColor: '#0093d2',
+        shadowColor: '#005e86ff',
         shadowOffset: {
             width: 0,
             height: 3,
